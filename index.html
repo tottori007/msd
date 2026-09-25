@@ -58,13 +58,13 @@
     .title-logo { font-size: 26px; white-space: nowrap; letter-spacing: 0.01em; }
   }
   .title-sub {
-    font-size: 12px; color: var(--ink-dim); letter-spacing: 0.06em; margin-bottom: 40px;
+    font-size: 12px; color: var(--ink-dim); letter-spacing: 0.06em; margin-bottom: 22px;
     font-family: var(--font-display);
   }
   .start-btn {
     font-family: var(--font-display); font-size: 16px; letter-spacing: 0.12em; font-weight: 700;
     color: #04140c; background: var(--accent); border: none; border-radius: 8px;
-    padding: 16px 56px; box-shadow: 0 8px 24px -10px var(--accent-glow); margin-bottom: 28px;
+    width: 240px; padding: 16px 0; box-shadow: 0 8px 24px -10px var(--accent-glow); margin-bottom: 28px;
   }
   .guide-check {
     display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--ink-dim); cursor: pointer;
@@ -176,6 +176,33 @@
   .pause-btn-list { display: flex; flex-direction: column; gap: 10px; }
   .pause-btn-list .btn { width: 100%; }
 
+  .miss-panel {
+    min-width: 200px; max-width: 240px; padding: 16px 18px;
+    background: rgba(16,24,21,0.96); box-shadow: 0 12px 40px -10px rgba(0,0,0,0.75);
+  }
+  #missOverlay { background: transparent; backdrop-filter: none; align-items: flex-start; padding-top: 24%; }
+  @media (max-width: 719px) {
+    #missOverlay { padding-top: 15%; }
+  }
+  .miss-title {
+    font-family: var(--font-display); font-size: 17px; font-weight: 700; letter-spacing: 0.08em;
+    color: var(--warn); text-shadow: 0 0 14px rgba(255,138,101,0.35); margin-bottom: 7px;
+  }
+  .miss-reason { font-size: 11px; color: var(--ink); margin-bottom: 4px; }
+  .miss-moves { font-size: 10px; color: var(--ink-dim); margin-bottom: 13px; }
+  .miss-guide-label {
+    font-family: var(--font-display); font-size: 8.5px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink-faint); margin-bottom: 6px;
+  }
+  .miss-guide-icons {
+    display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 5px;
+    background: var(--panel2); border: 1px solid var(--grid-line); border-radius: 7px;
+    padding: 7px; margin-bottom: 14px;
+  }
+  .miss-guide-icons svg { width: 17px; height: 17px; }
+  .miss-panel .pause-btn-list { gap: 7px; }
+  .miss-panel .btn { padding: 9px 12px; font-size: 12px; }
+
   .game-body {
     flex: 1; display: flex; overflow: hidden; position: relative;
   }
@@ -285,6 +312,19 @@
   .phone-status-col .value.piece { font-size: 11px; }
   .phone-status-col .hold-inner { height: 30px; }
   .phone-board-col { flex: 1; display: flex; justify-content: center; align-items: flex-start; min-width: 0; }
+  .board-col-inner { display: flex; flex-direction: column; align-items: center; width: 100%; min-width: 0; }
+  .action-log {
+    width: 100%; max-width: 100%; margin-top: 6px; height: 24px;
+    background: var(--panel2); border: 1px solid var(--grid-line); border-radius: 6px;
+    font-family: var(--font-display); font-size: 10px; color: var(--ink-faint);
+    padding: 3px 8px; overflow-x: auto; overflow-y: hidden; white-space: nowrap;
+    box-sizing: border-box; display: flex; align-items: center; justify-content: center; gap: 2px;
+  }
+  .log-item { display: inline-flex; align-items: center; flex-shrink: 0; }
+  .log-item svg { display: block; width: 15px; height: 15px; }
+  .log-item.auto svg { filter: drop-shadow(0 0 3px var(--accent)); }
+  .log-item.auto { background: rgba(77,255,168,0.18); border-radius: 4px; }
+  .log-item.log-text { font-size: 9px; color: var(--ink-dim); padding: 0 3px; }
   .phone-right-col { width: 66px; display: flex; flex-direction: column; gap: 5px; flex-shrink: 0; }
   .phone-right-col .panel-box { padding: 6px; }
   .phone-right-col .panel-title { font-size: 7px; margin-bottom: 4px; }
@@ -374,14 +414,23 @@
     background: var(--panel); border: 1px solid var(--grid-line); border-radius: 20px;
     padding: 9px 18px;
   }
-  .share-btn-el[disabled] { pointer-events: none; opacity: 0.5; }
 
   /* ============ INTRO / GUIDE OVERLAY ============ */
+  .lang-toggle {
+    position: absolute; top: 14px; right: 14px; display: flex; z-index: 2;
+    background: var(--panel); border: 1px solid var(--grid-line); border-radius: 8px; padding: 3px;
+  }
+  .lang-btn {
+    font-family: var(--font-display); font-size: 10px; font-weight: 700; letter-spacing: 0.03em;
+    color: var(--ink-faint); background: transparent; border: none; border-radius: 6px; padding: 6px 10px;
+  }
+  .lang-btn.active { background: var(--accent); color: #04140c; }
+
   .intro-btn {
-    position: absolute; top: 18px; right: 18px;
     font-family: var(--font-display); font-size: 11px; letter-spacing: 0.06em; font-weight: 700;
     color: var(--ink-dim); background: var(--panel); border: 1px solid var(--grid-line);
-    border-radius: 8px; padding: 8px 14px; display: flex; align-items: center; gap: 6px;
+    border-radius: 8px; padding: 8px 0; width: 240px; display: flex; align-items: center; justify-content: center; gap: 6px;
+    margin-bottom: 14px; box-sizing: border-box;
   }
   .intro-btn svg { width: 13px; height: 13px; flex-shrink: 0; }
   .intro-overlay {
@@ -400,6 +449,10 @@
   .intro-card {
     border: 1px solid var(--grid-line); border-radius: 10px; padding: 9px 12px;
     margin-bottom: 7px; background: var(--panel);
+  }
+  .intro-section-label {
+    font-family: var(--font-display); font-size: 13px; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--ink-faint); margin: 12px 2px 8px;
   }
   .intro-card-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: 7px; }
   .intro-card-head:last-child { margin-bottom: 0; }
@@ -425,7 +478,8 @@
   .mini-caption.on { opacity: 1; }
   .board-seq { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
   .board-seq .board-col { display: flex; flex-direction: column; }
-  .board-seq .arrow { color: var(--accent); font-size: 13px; }
+  .arrow { color: var(--accent); font-size: 24px; font-weight: 700; line-height: 1; text-shadow: 0 0 10px var(--accent-glow); }
+  .arrow-inline { color: var(--accent); font-weight: 700; }
   .rot-compare { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
   .rot-compare .mid-note { font-size: 10px; color: var(--ink-dim); }
 </style>
@@ -435,10 +489,10 @@
 
   <!-- ============ TITLE SCREEN ============ -->
   <div id="titleScreen">
-    <button class="intro-btn" id="introBtn">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="11"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-      はじめに
-    </button>
+    <div class="lang-toggle" id="langToggle">
+      <button class="lang-btn active" id="langBtnJa" data-lang="ja">日本語</button>
+      <button class="lang-btn" id="langBtnEn" data-lang="en">English</button>
+    </div>
     <div class="title-mino-row">
       <div class="blk" style="background:var(--I)"></div>
       <div class="blk" style="background:var(--O)"></div>
@@ -448,36 +502,41 @@
       <div class="blk" style="background:var(--J)"></div>
       <div class="blk" style="background:var(--L)"></div>
     </div>
-    <div class="title-logo">ミノ<span class="accent">スピードドロップ</span></div>
-    <div class="title-sub">最短手数配置トレーニング</div>
-    <button class="start-btn" id="startBtn">スタート</button>
+    <div class="title-logo" data-i18n-html="brand_logo">ミノ<span class="accent">スピードドロップ</span></div>
+    <div class="title-sub" data-i18n="title_sub">最短手数配置トレーニング</div>
+    <button class="intro-btn" id="introBtn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="11"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+      <span data-i18n="howto_btn">遊び方</span>
+    </button>
+    <button class="start-btn" id="startBtn" data-i18n="start_btn">スタート</button>
     <label class="guide-check">
       <input type="checkbox" id="guideCheckbox" checked>
-      <span>操作手順ガイドを表示する</span>
+      <span data-i18n="guide_check_label">操作手順ガイドを表示する</span>
     </label>
-    <div class="guide-hint">ONにすると各お題の最短手数と操作手順が表示されます<br>OFFでも最短手数判定は行われます</div>
+    <div class="guide-hint" data-i18n-html="guide_hint">ONにすると各お題の最短手数と操作手順が表示されます<br>OFFでも最短手数判定は行われます</div>
     <div class="guide-icon-legend">
-      <span class="legend-item"><span class="legend-icon" id="legendMoveL"></span>左移動</span>
-      <span class="legend-item"><span class="legend-icon" id="legendMoveR"></span>右移動</span>
-      <span class="legend-item"><span class="legend-icon" id="legendMoveLongL"></span>左長押し</span>
-      <span class="legend-item"><span class="legend-icon" id="legendMoveLongR"></span>右長押し</span>
+      <span class="legend-item"><span class="legend-icon" id="legendMoveL"></span><span data-i18n="legend_move_l">左移動</span></span>
+      <span class="legend-item"><span class="legend-icon" id="legendMoveR"></span><span data-i18n="legend_move_r">右移動</span></span>
       <span class="legend-break"></span>
-      <span class="legend-item"><span class="legend-icon" id="legendRotL"></span>左回転</span>
-      <span class="legend-item"><span class="legend-icon" id="legendRotR"></span>右回転</span>
-      <span class="legend-item"><span class="legend-icon" id="legendDrop"></span>落下(ハードドロップ)</span>
+      <span class="legend-item"><span class="legend-icon" id="legendMoveLongL"></span><span data-i18n="legend_hold_l">左長押し</span></span>
+      <span class="legend-item"><span class="legend-icon" id="legendMoveLongR"></span><span data-i18n="legend_hold_r">右長押し</span></span>
+      <span class="legend-break"></span>
+      <span class="legend-item"><span class="legend-icon" id="legendRotL"></span><span data-i18n="legend_rot_l">左回転</span></span>
+      <span class="legend-item"><span class="legend-icon" id="legendRotR"></span><span data-i18n="legend_rot_r">右回転</span></span>
+      <span class="legend-item"><span class="legend-icon" id="legendDrop"></span><span data-i18n="legend_drop">落下(ハードドロップ)</span></span>
     </div>
-    <div class="title-footer-note">← → / A D 移動　↑ W ハードドロップ　Z X 回転　Space ホールド</div>
+    <div class="title-footer-note" data-i18n="footer_note">← → / A D 移動　↑ W ハードドロップ　Z X 回転　Space ホールド</div>
     <div class="title-version">2026 TRIBIRDS</div>
-    <div class="title-credit">V1.0.0</div>
+    <div class="title-credit">V1.1.0</div>
   </div>
 
   <!-- ============ INTRO / GUIDE OVERLAY ============ -->
   <div id="introOverlay" class="intro-overlay">
     <div class="intro-panel">
-      <div class="intro-title"><span class="name">ミノ<span class="accent">スピードドロップ</span></span><span class="desc">ミノを最短の手数で素早く置く練習をするゲーム</span></div>
+      <div class="intro-title"><span class="name" data-i18n-html="brand_logo">ミノ<span class="accent">スピードドロップ</span></span><span class="desc" data-i18n="intro_desc">ミノを最短の手数で素早く置こう！</span></div>
 
       <div class="intro-card">
-        <div class="intro-card-head"><span class="intro-term">ミノ</span><span class="intro-desc">4つの四角が繋がったブロック。全7種類</span></div>
+        <div class="intro-card-head"><span class="intro-term" data-i18n="term_mino">ミノ</span><span class="intro-desc" data-i18n="desc_mino">4つの四角が繋がったブロック。全7種類</span></div>
         <div class="mino-list-row">
           <div class="mino-list-item"><div class="sw" style="background:var(--I)"></div></div>
           <div class="mino-list-item"><div class="sw" style="background:var(--O)"></div></div>
@@ -490,11 +549,13 @@
       </div>
 
       <div class="intro-card">
-        <div class="intro-card-head"><span class="intro-term">最適化</span><span class="intro-desc">ミノを最少手数で素早く正確に置くテクニック</span></div>
+        <div class="intro-card-head"><span class="intro-term" data-i18n="term_finesse">最適化</span><span class="intro-desc" data-i18n="desc_finesse">ミノを最少手数で素早く正確に置くテクニック</span></div>
       </div>
 
+      <div class="intro-section-label" data-i18n="section_technique">テクニック</div>
+
       <div class="intro-card">
-        <div class="intro-card-head"><span class="intro-term">壁押し付け</span><span class="intro-desc">ミノを壁に押し付けたまま回転させる操作</span></div>
+        <div class="intro-card-head"><span class="intro-term" data-i18n="term_wallpress">壁押し付け</span><span class="intro-desc" data-i18n="desc_wallpress">ミノを壁に押し付けたまま回転させる操作</span></div>
         <div class="rot-compare">
           <div class="board-col">
             <div class="board-wrap">
@@ -505,7 +566,7 @@
                 <div class="mini-cell"></div><div class="mini-cell"></div><div class="mini-cell"></div><div class="mini-cell"></div>
               </div>
             </div>
-            <div class="mini-caption">左を入れたまま</div>
+            <div class="mini-caption" data-i18n="cap_keep_left">左を入れたまま</div>
           </div>
           <div class="arrow">→</div>
           <div class="board-col">
@@ -517,13 +578,13 @@
                 <div class="mini-cell" style="background:var(--T)"></div><div class="mini-cell"></div><div class="mini-cell"></div><div class="mini-cell"></div>
               </div>
             </div>
-            <div class="mini-caption on">右回転で壁に押し付け</div>
+            <div class="mini-caption on" data-i18n="cap_keepleft_rotright">右回転で壁に押し付け</div>
           </div>
         </div>
       </div>
 
       <div class="intro-card">
-        <div class="intro-card-head"><span class="intro-term">壁押し付け回転</span><span class="intro-desc">壁に押し付けて回転 → 壁から1マス離れた位置に置ける</span></div>
+        <div class="intro-card-head"><span class="intro-term" data-i18n="term_wallkick">壁押し付け回転</span><span class="intro-desc" data-i18n="desc_wallkick">壁に押し付けて回転 → 壁から1マス離れた位置に置ける</span></div>
         <div class="rot-compare">
           <div class="board-col">
             <div class="board-wrap">
@@ -534,7 +595,7 @@
                 <div class="mini-cell"></div><div class="mini-cell"></div><div class="mini-cell"></div><div class="mini-cell"></div>
               </div>
             </div>
-            <div class="mini-caption">左に押し付け</div>
+            <div class="mini-caption" data-i18n="cap_press_left">左に押し付け</div>
           </div>
           <div class="arrow">→</div>
           <div class="board-col">
@@ -546,13 +607,13 @@
                 <div class="mini-cell"></div><div class="mini-cell" style="background:var(--L)"></div><div class="mini-cell" style="background:var(--L)"></div><div class="mini-cell"></div>
               </div>
             </div>
-            <div class="mini-caption on">右回転で1マス離れる</div>
+            <div class="mini-caption on" data-i18n="cap_rotright_1cell">右回転で1マス離れる</div>
           </div>
         </div>
       </div>
 
       <div class="intro-card">
-        <div class="intro-card-head"><span class="intro-term">壁切り返し</span><span class="intro-desc">壁に押し付けてから1マス引き戻して配置する</span></div>
+        <div class="intro-card-head"><span class="intro-term" data-i18n="term_dastapback">壁切り返し</span><span class="intro-desc" data-i18n="desc_dastapback">壁に押し付けてから1マス引き戻して配置する</span></div>
         <div class="rot-compare">
           <div class="board-col">
             <div class="board-wrap">
@@ -562,7 +623,7 @@
                 <div class="mini-cell" style="background:var(--O)"></div><div class="mini-cell" style="background:var(--O)"></div><div class="mini-cell"></div><div class="mini-cell"></div>
               </div>
             </div>
-            <div class="mini-caption">左に押し付け</div>
+            <div class="mini-caption" data-i18n="cap_press_left">左に押し付け</div>
           </div>
           <div class="arrow">→</div>
           <div class="board-col">
@@ -573,13 +634,13 @@
                 <div class="mini-cell"></div><div class="mini-cell" style="background:var(--O)"></div><div class="mini-cell" style="background:var(--O)"></div><div class="mini-cell"></div>
               </div>
             </div>
-            <div class="mini-caption on">右をいれ1マス離れる</div>
+            <div class="mini-caption on" data-i18n="cap_right_1cell">右をいれ1マス離れる</div>
           </div>
         </div>
       </div>
 
       <div class="intro-card">
-        <div class="intro-card-head"><span class="intro-term">ミノ別最適化</span><span class="intro-desc">Iミノ・S/Zミノは回転方向で置く位置が変わる</span></div>
+        <div class="intro-card-head"><span class="intro-term" data-i18n="term_finesse_piece">ミノ別最適化</span><span class="intro-desc" data-i18n="desc_finesse_piece">Iミノ・S/Zミノは回転方向で置く位置が変わる</span></div>
         <div class="rot-compare">
           <div class="board-col">
             <div class="board-wrap">
@@ -590,7 +651,7 @@
                 <div class="mini-cell"></div><div class="mini-cell" style="background:var(--S)"></div><div class="mini-cell"></div><div class="mini-cell"></div>
               </div>
             </div>
-            <div class="mini-caption on">左回転</div>
+            <div class="mini-caption on" data-i18n="legend_rot_l">左回転</div>
           </div>
           <div class="arrow">←</div>
           <div class="board-col">
@@ -602,7 +663,7 @@
                 <div class="mini-cell"></div><div class="mini-cell"></div><div class="mini-cell"></div><div class="mini-cell"></div>
               </div>
             </div>
-            <div class="mini-caption">左に押し付け</div>
+            <div class="mini-caption" data-i18n="cap_press_left">左に押し付け</div>
           </div>
           <div class="arrow">→</div>
           <div class="board-col">
@@ -614,7 +675,7 @@
                 <div class="mini-cell"></div><div class="mini-cell"></div><div class="mini-cell" style="background:var(--S)"></div><div class="mini-cell"></div>
               </div>
             </div>
-            <div class="mini-caption on">右回転で1マス離れる</div>
+            <div class="mini-caption on" data-i18n="cap_rotright_1cell">右回転で1マス離れる</div>
           </div>
         </div>
       </div>
@@ -626,7 +687,7 @@
   <div id="gameScreen" class="hidden">
     <div class="hint-bar" id="hintBar">
       <div class="hint-bar-left">
-        <span class="brandmini">ミノ<span style="color:var(--accent)">スピードドロップ</span></span>
+        <span class="brandmini" data-i18n-html="brand_logo_mini">ミノ<span style="color:var(--accent)">スピードドロップ</span></span>
       </div>
       <div class="hint-bar-center">
         <span class="step-chip" id="stepChip"></span>
@@ -646,9 +707,23 @@
         <div class="pause-panel">
           <div class="pause-title">PAUSE</div>
           <div class="pause-btn-list">
-            <button class="btn primary" id="pauseResumeBtn">続ける</button>
-            <button class="btn secondary" id="pauseRetryBtn">リトライ</button>
-            <button class="btn secondary" id="pauseTitleBtn">タイトルへ</button>
+            <button class="btn primary" id="pauseResumeBtn" data-i18n="btn_resume">続ける</button>
+            <button class="btn secondary" id="pauseRetryBtn" data-i18n="btn_retry">リトライ</button>
+            <button class="btn secondary" id="pauseTitleBtn" data-i18n="btn_title">タイトルへ</button>
+          </div>
+        </div>
+      </div>
+      <div class="pause-overlay" id="missOverlay">
+        <div class="pause-panel miss-panel">
+          <div class="miss-title">MISS</div>
+          <div class="miss-reason" id="missReason"></div>
+          <div class="miss-moves" id="missMoves"></div>
+          <div class="miss-guide-label" data-i18n="finesse_route_label">操作手順</div>
+          <div class="miss-guide-icons" id="missGuideIcons"></div>
+          <div class="pause-btn-list">
+            <button class="btn primary" id="missRetryBtn" data-i18n="btn_retry">リトライ</button>
+            <button class="btn secondary" id="missTitleBtn" data-i18n="btn_title">タイトルへ</button>
+            <button class="btn secondary" id="missHowtoBtn" data-i18n="howto_btn">遊び方</button>
           </div>
         </div>
       </div>
@@ -660,7 +735,7 @@
             <div class="hold-inner" id="holdCanvasWrap"><canvas id="holdCanvasPC" width="90" height="42"></canvas></div>
           </div>
           <div class="status-card"><div class="label">Piece</div><div class="value piece" id="pieceCountPC">1 / 21</div><div class="sub" id="pieceLapPC">1巡目・1/7</div></div>
-          <div class="status-card"><div class="label">Time</div><div class="value" id="timeValPC">00:00</div></div>
+          <div class="status-card"><div class="label">Time</div><div class="value" id="timeValPC">00:00.0</div></div>
           <div class="status-card"><div class="label">Success</div><div class="value accent" id="successValPC">0</div></div>
           <div class="status-card"><div class="label">Miss</div><div class="value warn" id="missValPC">0</div></div>
         </div>
@@ -670,6 +745,7 @@
             <div class="banner-center" id="bannerCenterPC"><div class="big" id="bannerBigPC">PERFECT</div><div class="small" id="bannerSmallPC"></div></div>
             <canvas id="boardCanvas"></canvas>
           </div>
+          <div class="action-log" id="actionLogPC"></div>
         </div>
 
         <div class="right-col">
@@ -678,12 +754,12 @@
             <div class="next-strip" id="nextStripPC"></div>
           </div>
           <div class="panel-box movecount-box">
-            <div class="movecount-label">手数</div>
+            <div class="movecount-label" data-i18n="moves_label">手数</div>
             <div class="movecount-value"><span class="cur" id="userMovesPC">0</span><span class="sep">/</span><span class="min" id="minMovesNumPC">-</span></div>
           </div>
           <div class="panel-box controls-card">
-            <div class="panel-title">操作方法</div>
-            <div class="controls-list">
+            <div class="panel-title" data-i18n="controls_title">操作方法</div>
+            <div class="controls-list" data-i18n-html="controls_list">
               <kbd>←</kbd><kbd>A</kbd> <kbd>→</kbd><kbd>D</kbd> 移動<br>
               <kbd>↓</kbd><kbd>S</kbd> ソフト<br>
               <kbd>↑</kbd><kbd>W</kbd> ハード<br>
@@ -700,22 +776,25 @@
           <div class="phone-status-col">
             <div class="panel-box"><div class="panel-title">Hold</div><div class="hold-inner" id="holdCanvasWrapM"><canvas id="holdCanvasM" width="46" height="30"></canvas></div></div>
             <div class="status-card"><div class="label">Piece</div><div class="value piece" id="pieceCountM">1/21</div></div>
-            <div class="status-card"><div class="label">Time</div><div class="value" id="timeValM">00:00</div></div>
+            <div class="status-card"><div class="label">Time</div><div class="value" id="timeValM">00:00.0</div></div>
             <div class="status-card"><div class="label">Success</div><div class="value accent" id="successValM">0</div></div>
             <div class="status-card"><div class="label">Miss</div><div class="value warn" id="missValM">0</div></div>
           </div>
 
           <div class="phone-board-col">
-            <div class="board-panel" style="padding:5px;">
-              <div class="banner-center" id="bannerCenterM"><div class="big" id="bannerBigM" style="font-size:20px;">PERFECT</div><div class="small" id="bannerSmallM" style="font-size:12px;"></div></div>
-              <canvas id="boardCanvasM"></canvas>
+            <div class="board-col-inner">
+              <div class="board-panel" style="padding:5px;">
+                <div class="banner-center" id="bannerCenterM"><div class="big" id="bannerBigM" style="font-size:20px;">PERFECT</div><div class="small" id="bannerSmallM" style="font-size:12px;"></div></div>
+                <canvas id="boardCanvasM"></canvas>
+              </div>
+              <div class="action-log" id="actionLogM"></div>
             </div>
           </div>
 
           <div class="phone-right-col">
             <div class="panel-box"><div class="panel-title">Next</div><div class="next-strip" id="nextStripM"></div></div>
             <div class="panel-box movecount-box">
-              <div class="movecount-label">手数</div>
+            <div class="movecount-label" data-i18n="moves_label">手数</div>
               <div class="movecount-value"><span class="cur" id="userMovesM">0</span><span class="sep">/</span><span class="min" id="minMovesNumM">-</span></div>
             </div>
           </div>
@@ -754,16 +833,16 @@
       <div class="stat-divider"></div>
       <div class="stat-block"><div class="label">Miss</div><div class="value warn" id="resultMiss">0</div></div>
     </div>
-    <div class="result-comment" id="resultComment"></div>
+    <div class="result-comment" id="resultComment" data-i18n="result_perfect"></div>
     <div class="btn-row">
-      <button class="btn primary" id="retryBtn">リトライ</button>
-      <button class="btn secondary" id="topBtn">タイトルへ</button>
+      <button class="btn primary" id="retryBtn" data-i18n="btn_retry">リトライ</button>
+      <button class="btn secondary" id="topBtn" data-i18n="btn_title">タイトルへ</button>
     </div>
-    <button class="share-btn-el" id="shareBtn" disabled>
+    <button class="share-btn-el" id="shareBtn">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.6 8.7L23.3 22h-7l-5.5-7.2L4.5 22H1.4l8.1-9.3L1 2h7.2l5 6.6L18.9 2Zm-1.2 18h1.7L7.4 4H5.6l12.1 16Z"/></svg>
-      <div id="shareBtnLabel">MISS0でシェア</div>
+      <div data-i18n="share_label">シェア</div>
     </button>
-    <div class="result-next-hint hidden" id="resultNextHint">操作手順ガイドOFFでも遊んでみよう</div>
+    <div class="result-next-hint hidden" id="resultNextHint" data-i18n="result_next_hint">操作手順ガイドOFFでも遊んでみよう</div>
   </div>
 
 </div>
@@ -771,6 +850,163 @@
 <script>
 (() => {
   "use strict";
+
+  // =====================================================================
+  // i18n
+  // =====================================================================
+  const STRINGS = {
+    ja: {
+      doc_title: 'ミノスピードドロップ',
+      brand_logo: 'ミノ<span class="accent">スピードドロップ</span>',
+      brand_logo_mini: 'ミノ<span style="color:var(--accent)">スピードドロップ</span>',
+      title_sub: '最短手数配置トレーニング',
+      howto_btn: '遊び方',
+      start_btn: 'スタート',
+      guide_check_label: '操作手順ガイドを表示する',
+      guide_hint: 'ONにすると各お題の最短手数と操作手順が表示されます<br>OFFでも最短手数判定は行われます',
+      legend_move_l: '左移動',
+      legend_move_r: '右移動',
+      legend_hold_l: '左長押し',
+      legend_hold_r: '右長押し',
+      legend_rot_l: '左回転',
+      legend_rot_r: '右回転',
+      legend_drop: '落下(ハードドロップ)',
+      footer_note: '← → / A D 移動　↑ W ハードドロップ　Z X , . 回転　Space ホールド',
+      intro_desc: 'ミノを最短の手数で素早く置こう！',
+      term_mino: 'ミノ',
+      desc_mino: '4つの四角が繋がったブロック。全7種類',
+      term_finesse: '最適化',
+      desc_finesse: 'ミノを最少手数で素早く正確に置くテクニック',
+      section_technique: 'テクニック',
+      term_wallpress: '壁押し付け',
+      desc_wallpress: 'ミノを壁に押し付けたまま回転させる操作',
+      cap_keep_left: '左を入れたまま',
+      cap_keepleft_rotright: '右回転で壁に押し付け',
+      term_wallkick: '壁押し付け回転',
+      desc_wallkick: '壁に押し付けて回転 → 壁から1マス離れた位置に置ける',
+      cap_press_left: '左に押し付け',
+      cap_rotright_1cell: '右回転で1マス離れる',
+      term_dastapback: '壁切り返し',
+      desc_dastapback: '壁に押し付けてから1マス引き戻して配置する',
+      cap_right_1cell: '右をいれ1マス離れる',
+      term_finesse_piece: 'ミノ別最適化',
+      desc_finesse_piece: 'Iミノ・S/Zミノは回転方向で置く位置が変わる',
+      btn_resume: '続ける',
+      btn_retry: 'リトライ',
+      btn_title: 'タイトルへ',
+      finesse_route_label: '操作手順',
+      moves_label: '手数',
+      controls_title: '操作方法',
+      controls_list: '<kbd>←</kbd><kbd>A</kbd> <kbd>→</kbd><kbd>D</kbd> 移動<br><kbd>↓</kbd><kbd>S</kbd> ソフト<br><kbd>↑</kbd><kbd>W</kbd> ハード<br><kbd>Z</kbd> <kbd>X</kbd> <kbd>,</kbd> <kbd>.</kbd> 回転<br><kbd>Space</kbd> ホールド',
+      result_perfect: 'パーフェクト！',
+      share_label: 'シェア',
+      result_next_hint: '操作手順ガイドOFFでも遊んでみよう',
+      moves_ratio: '{count}手 / {min}手',
+      lap_pos: '{lap}巡目・{pos}/7',
+      miss_reason_shape: '配置ミス',
+      miss_reason_moves: '最短手数オーバー',
+      miss_moves_line: '最短手数: {min}手（手数: {count}手）',
+      tweet_line1: '『ミノスピードドロップ』で全ミノを最短手数でパーフェクトクリア🎉',
+      tweet_time: 'タイム: {m}:{s}.{cs}',
+      tweet_guide_on: '（操作手順ガイドON）',
+      tweet_hashtag: '#ミノスピードドロップ',
+    },
+    en: {
+      doc_title: 'Mino Speed Drop',
+      brand_logo: 'MINO<span class="accent"> SPEED DROP</span>',
+      brand_logo_mini: 'MINO<span style="color:var(--accent)"> SPEED DROP</span>',
+      title_sub: 'Finesse Training',
+      howto_btn: 'How to Play',
+      start_btn: 'START',
+      guide_check_label: 'Show Finesse Guide',
+      guide_hint: 'When ON, Finesse route for each piece are shown<br>Finesse judging still works when OFF',
+      legend_move_l: 'Move Left',
+      legend_move_r: 'Move Right',
+      legend_hold_l: 'Keep Left',
+      legend_hold_r: 'Keep Right',
+      legend_rot_l: 'Rotate Left',
+      legend_rot_r: 'Rotate Right',
+      legend_drop: 'Hard Drop',
+      footer_note: '← → / A D [Move]   ↑ W [Hard Drop]   Z X , . [Rotate]   Space [Hold]',
+      intro_desc: 'Place minos quickly in the fewest moves!',
+      term_mino: 'Mino',
+      desc_mino: 'A block made of 4 connected squares. 7 types in total',
+      term_finesse: 'Finesse',
+      desc_finesse: 'The technique of placing a mino quickly and accurately in the fewest moves',
+      section_technique: 'Techniques',
+      term_wallpress: 'Wall Press',
+      desc_wallpress: 'Rotating a mino while holding it against the wall',
+      cap_keep_left: 'Keep Left',
+      cap_keepleft_rotright: 'Keep Left and Rotate Right',
+      term_wallkick: 'Wall Kick',
+      desc_wallkick: 'Move to the wall, rotate > One square from wall',
+      cap_press_left: 'Keep Left',
+      cap_rotright_1cell: 'Rotating right moves it a cell away',
+      term_dastapback: 'DAS Tapback',
+      desc_dastapback: 'Move to the wall, then tap back one cell to place',
+      cap_right_1cell: 'Move Right to move a cell away',
+      term_finesse_piece: 'Finesse by Piece',
+      desc_finesse_piece: 'For I, S, and Z pieces, landing position depends on rotation',
+      btn_resume: 'RESUME',
+      btn_retry: 'RETRY',
+      btn_title: 'TITLE',
+      finesse_route_label: 'Finesse Route',
+      moves_label: 'Moves',
+      controls_title: 'Controls',
+      controls_list: '<kbd>←</kbd><kbd>A</kbd> <kbd>→</kbd><kbd>D</kbd> Move<br><kbd>↓</kbd><kbd>S</kbd> Soft<br><kbd>↑</kbd><kbd>W</kbd> Hard<br><kbd>Z</kbd> <kbd>X</kbd> <kbd>,</kbd> <kbd>.</kbd> Rotate<br><kbd>Space</kbd> Hold',
+      result_perfect: 'Perfect!',
+      share_label: 'Share',
+      result_next_hint: 'Try playing with the Finesse Guide OFF',
+      moves_ratio: '{count} moves / {min} moves',
+      lap_pos: 'Lap {lap} · {pos}/7',
+      miss_reason_shape: 'Incorrect placement',
+      miss_reason_moves: 'Exceeded minimum moves',
+      miss_moves_line: 'Minimum: {min} moves (Yours: {count} moves)',
+      tweet_line1: "Perfect-cleared all minos with minimum moves in 'Mino Speed Drop' 🎉",
+      tweet_time: 'Time: {m}:{s}.{cs}',
+      tweet_guide_on: '(Finesse Guide ON)',
+      tweet_hashtag: '#MinoSpeedDrop',
+    },
+  };
+
+  let lang = 'ja';
+
+  function t(key, params) {
+    let str = (STRINGS[lang] && STRINGS[lang][key] !== undefined) ? STRINGS[lang][key] : (STRINGS.ja[key] || key);
+    if (params) {
+      for (const k in params) {
+        str = str.replace(new RegExp('\\{' + k + '\\}', 'g'), params[k]);
+      }
+    }
+    return str;
+  }
+
+  function applyLanguage(newLang) {
+    lang = newLang;
+    document.title = t('doc_title');
+    document.querySelectorAll('[data-i18n]').forEach((el) => {
+      el.textContent = t(el.getAttribute('data-i18n'));
+    });
+    document.querySelectorAll('[data-i18n-html]').forEach((el) => {
+      el.innerHTML = t(el.getAttribute('data-i18n-html'));
+    });
+    document.getElementById('langBtnJa').classList.toggle('active', lang === 'ja');
+    document.getElementById('langBtnEn').classList.toggle('active', lang === 'en');
+    refreshDynamicTexts();
+  }
+
+  function refreshDynamicTexts() {
+    // Re-render any currently-visible dynamic text so an in-progress
+    // session or overlay updates immediately when the language changes.
+    if (typeof updatePieceCountUI === 'function' && typeof piecesUsed !== 'undefined') {
+      try { updatePieceCountUI(); } catch (e) {}
+    }
+    if (document.getElementById('missOverlay').classList.contains('show') && lastMiss) {
+      renderMissOverlay();
+    }
+  }
+
+  let lastMiss = null;
 
   // =====================================================================
   // Constants
@@ -852,7 +1088,7 @@
   let isMobile = false;
 
   let bag = [];
-  let nextQueue = []; // upcoming piece types (lookahead)
+  let nextQueue = []; // upcoming pieces (lookahead) as pre-resolved target objects {type, rot, x, cellsAbs, minMoves, path}
   let piecesUsed = 0; // total pieces spawned this session (for 21-piece cap)
 
   let current = null; // {type, rot, x, y, cellsLocal}
@@ -861,6 +1097,9 @@
 
   let target = null; // {type, rot, x, cellsAbs, minMoves, path: [{op:'L'|'R'|'RL'|'RR'}, ...]}
   let userMoveCount = 0;
+  let actionLog = []; // debug: chronological log of every registered/attempted action
+  let pendingLogReset = false; // clear the log lazily, on the next piece's first action
+  let lastDirLogIndex = { left: -1, right: -1 }; // for converting a tap into a long-press icon
 
   let score = 0, streak = 0, misses = 0, successes = 0;
   let sessionStartTime = null;
@@ -883,10 +1122,29 @@
     }
     return b;
   }
+  function getSpawnX(type) {
+    const cells = getRotatedCells(type, 0);
+    const b = shapeBoundsCells(cells);
+    return Math.floor((COLS - b.w) / 2) - b.minX;
+  }
+  function computeFullTarget(type) {
+    // Fully resolves a piece's target (position) and its finesse solution
+    // (min moves + path) ahead of time, using the piece's fixed spawn state
+    // (always rot 0, the same startX for that type, y 0) -- this lets the
+    // Next-queue preview show exactly the target that will be judged later,
+    // instead of a placeholder that gets re-rolled at spawn time.
+    const tgt = makeTarget(type);
+    const startX = getSpawnX(type);
+    const solved = solvePath(type, startX, 0, 0, tgt);
+    tgt.minMoves = solved.moves === null ? null : solved.moves + 1;
+    tgt.path = solved.path;
+    return tgt;
+  }
   function ensureQueue(minLen) {
     while (nextQueue.length < minLen) {
       if (bag.length === 0) bag = refillBag();
-      nextQueue.push(bag.shift());
+      const type = bag.shift();
+      nextQueue.push(computeFullTarget(type));
     }
   }
   function popNext() {
@@ -920,6 +1178,13 @@
     return current.cellsLocal.map(([x,y]) => [x + current.x, y + current.y]);
   }
 
+  function ghostAbsCells() {
+    let dy = 0;
+    while (!collides(current.cellsLocal, current.x, current.y + dy + 1)) dy++;
+    if (dy === 0) return null; // already grounded, no separate ghost to show
+    return current.cellsLocal.map(([x,y]) => [x + current.x, y + current.y + dy]);
+  }
+
   function checkGrounded() {
     return collides(current.cellsLocal, current.x, current.y + 1);
   }
@@ -934,11 +1199,11 @@
     }
   }
 
-  function tryMove(dx, countMove) {
+  function tryMove(dx, countMove, labelOverride) {
     if (sessionEnded || paused || !current) return false;
     if (!collides(current.cellsLocal, current.x + dx, current.y)) {
       current.x += dx;
-      if (countMove) registerMove();
+      if (countMove) registerMove(labelOverride || (dx < 0 ? 'L' : 'R'));
       resetLockDelay();
       renderAll();
       return true;
@@ -978,7 +1243,7 @@
       current.rot = toRot;
       current.x = result.x;
       current.y = result.y;
-      registerMove();
+      registerMove(dir > 0 ? 'RotR' : 'RotL');
       resetLockDelay();
       renderAll();
       return true;
@@ -1002,12 +1267,54 @@
     let dy = 0;
     while (!collides(current.cellsLocal, current.x, current.y + dy + 1)) dy++;
     current.y += dy;
+    logAction('Drop');
     finalizeLock(false);
   }
 
-  function registerMove() {
+  function actionIconHTML(kind) {
+    switch (kind) {
+      case 'L': return iconMoveSingleLeft();
+      case 'R': return iconMoveSingle();
+      case 'HoldL': return iconMoveLongLeft();
+      case 'HoldR': return iconMoveLong();
+      case 'RotL': return iconRotate(true);
+      case 'RotR': return iconRotate(false);
+      case 'Drop': return iconHardDrop();
+      default: return null;
+    }
+  }
+  function logAction(kind) {
+    if (pendingLogReset) { actionLog = []; pendingLogReset = false; }
+    const auto = (kind === 'L!' || kind === 'R!');
+    const baseKind = auto ? (kind === 'L!' ? 'L' : 'R') : kind;
+    const iconHtml = actionIconHTML(baseKind);
+    let html;
+    if (iconHtml) {
+      const cls = 'log-item' + (auto ? ' auto' : '');
+      html = `<span class="${cls}">${iconHtml}</span>`;
+    } else {
+      html = `<span class="log-item log-text">${kind}</span>`;
+    }
+    actionLog.push(html);
+    if (actionLog.length > 60) actionLog.shift();
+    renderActionLog();
+  }
+  function renderActionLog() {
+    const html = actionLog.join('');
+    const pc = document.getElementById('actionLogPC');
+    const m = document.getElementById('actionLogM');
+    if (pc) { pc.innerHTML = html; pc.scrollLeft = pc.scrollWidth; }
+    if (m) { m.innerHTML = html; m.scrollLeft = m.scrollWidth; }
+  }
+  function clearActionLog() {
+    actionLog = [];
+    renderActionLog();
+  }
+
+  function registerMove(label) {
     userMoveCount += 1;
     updateMoveCountUI();
+    if (label) logAction(label);
   }
 
   // =====================================================================
@@ -1017,6 +1324,7 @@
     if (sessionEnded || paused || !current || holdUsedThisPiece) return;
     holdUsedThisPiece = true;
     clearTimeout(lockDelayTimer);
+    logAction('HOLD');
     const outgoing = current.type;
     if (holdType === null) {
       holdType = outgoing;
@@ -1197,48 +1505,76 @@
     // Final move count always includes the hard drop itself (+1), since every
     // placement must end with a hard drop to be judged.
     const finalMoveCount = userMoveCount + 1;
-    const movesOk = target.minMoves === null || finalMoveCount === target.minMoves;
+    userMoveCount = finalMoveCount;
+    updateMoveCountUI();
+    const movesOk = target.minMoves === null || finalMoveCount <= target.minMoves;
     const isPerfect = shapeOk && movesOk;
 
     if (isPerfect) {
       score += 100 + streak * 10;
       streak += 1;
       successes += 1;
-      showBanner(true, streak >= 5 ? `PERFECT ×${streak}` : 'PERFECT', `${finalMoveCount}手 / ${target.minMoves === null ? '?' : target.minMoves}手`);
+      showBanner(true, streak >= 5 ? `PERFECT ×${streak}` : 'PERFECT', t('moves_ratio', { count: finalMoveCount, min: target.minMoves === null ? '?' : target.minMoves }));
+      updateStatsUI();
+
+      piecesUsed += 1;
+      judgingLock = false;
+
+      // No waiting: immediately advance to the next piece (or end the session).
+      // The judgement banner keeps showing independently and fades out on its own,
+      // without blocking or delaying the next piece's spawn/input.
+      if (piecesUsed >= TOTAL_PIECES) {
+        endSession();
+      } else {
+        spawnNextFromQueue();
+      }
     } else {
       misses += 1;
       streak = 0;
-      let detail = '';
-      if (!shapeOk) detail = '形が不一致';
-      else detail = `${finalMoveCount}手 / 最短${target.minMoves}手`;
-      showBanner(false, 'MISS', detail);
-    }
-    updateStatsUI();
-
-    piecesUsed += 1;
-    judgingLock = false;
-
-    // No waiting: immediately advance to the next piece (or end the session).
-    // The judgement banner keeps showing independently and fades out on its own,
-    // without blocking or delaying the next piece's spawn/input.
-    if (piecesUsed >= TOTAL_PIECES) {
-      endSession();
-    } else {
-      spawnNextFromQueue();
+      const reasonKey = !shapeOk ? 'miss_reason_shape' : 'miss_reason_moves';
+      updateStatsUI();
+      piecesUsed += 1;
+      judgingLock = false;
+      showMissOverlay(reasonKey, finalMoveCount);
     }
   }
 
   function spawnNextFromQueue() {
     const t = popNext();
-    spawnPiece(t);
+    spawnPiece(t.type);
     holdUsedThisPiece = false;
     userMoveCount = 0;
     updateMoveCountUI();
-    makeNewTargetForCurrent();
+    target = t;
+    updateHintUI();
+    updateMinMovesUI();
     drawHold();
     drawNextQueue();
     updatePieceCountUI();
     renderAll();
+    pendingLogReset = true;
+
+    // Freeze any leftover DAS/ARR interval from the piece that just locked so
+    // it can't keep silently nudging the brand-new piece during the wait
+    // below (leftHeld/rightHeld themselves are left alone -- they still
+    // reflect whether the key is physically down).
+    pauseHoldTimers(-1);
+    pauseHoldTimers(1);
+
+    // If a direction key was already being held through the hard drop
+    // (e.g. holding Left, hard-dropping, and the new piece appears while
+    // Left is still down), treat it as a fresh press for this new piece
+    // so it still counts as 1 move instead of silently continuing the
+    // previous piece's already-spent DAS/ARR state uncounted.
+    // Wait briefly first: if the player was actually releasing the key right
+    // around the drop, this gives the keyup event time to land so a quick
+    // tap-then-release at the piece boundary doesn't get misread as a held key.
+    const spawnedPiece = current;
+    setTimeout(() => {
+      if (current !== spawnedPiece) return; // a newer piece has since spawned; stale check
+      if (leftHeld) { stopHoldMove(-1); startHoldMove(-1, true); }
+      if (rightHeld) { stopHoldMove(1); startHoldMove(1, true); }
+    }, 100);
   }
 
   // =====================================================================
@@ -1282,7 +1618,7 @@
   function resizeCanvases() {
     if (isMobile) {
       const wrap = document.querySelector('.phone-board-col');
-      const availH = wrap ? wrap.clientHeight - 12 : 380;
+      const availH = wrap ? wrap.clientHeight - 12 - 30 : 350;
       const availW = wrap ? wrap.clientWidth - 12 : 190;
       CELL = Math.floor(Math.min(availH / ROWS, availW / COLS));
       CELL = Math.max(10, Math.min(CELL, 20));
@@ -1321,6 +1657,18 @@
     for (let r = 0; r <= ROWS; r++) {
       ctx.beginPath(); ctx.moveTo(0, r * CELL); ctx.lineTo(COLS * CELL, r * CELL); ctx.stroke();
     }
+    // next-piece target preview (very faint, drawn first so the current
+    // target and piece always stay visually on top of it)
+    if (nextQueue[0]) {
+      ctx.save();
+      ctx.setLineDash([4, 4]);
+      ctx.strokeStyle = 'rgba(215,229,223,0.10)';
+      ctx.lineWidth = 1.5;
+      nextQueue[0].cellsAbs.forEach(([x,y]) => {
+        ctx.strokeRect(x * CELL + 3, y * CELL + 3, CELL - 6, CELL - 6);
+      });
+      ctx.restore();
+    }
     // target ghost
     if (target) {
       ctx.save();
@@ -1331,6 +1679,19 @@
         ctx.strokeRect(x * CELL + 3, y * CELL + 3, CELL - 6, CELL - 6);
       });
       ctx.restore();
+    }
+    // drop preview (ghost) for the current piece's landing spot
+    if (current && guideEnabled) {
+      const ghost = ghostAbsCells();
+      if (ghost) {
+        const color = COLORS[current.type];
+        ctx.save();
+        ctx.globalAlpha = 0.10;
+        ghost.forEach(([x,y]) => {
+          if (y >= 0) drawCell(ctx, x, y, color);
+        });
+        ctx.restore();
+      }
     }
     // current piece
     if (current) {
@@ -1379,7 +1740,7 @@
         cv.width = 60; cv.height = 60;
         div.appendChild(cv);
         container.appendChild(div);
-        drawMiniPiece(cv, t);
+        drawMiniPiece(cv, t.type);
       });
     });
   }
@@ -1421,22 +1782,12 @@
     </svg>`;
   }
 
-  function updateHintUI() {
-    const chip = document.getElementById('stepChip');
-    if (!guideEnabled || !target) {
-      chip.innerHTML = '';
-      chip.style.display = 'none';
-      return;
-    }
-    chip.style.display = 'inline-flex';
+  function buildGuideIconsHTML(path) {
     let html = '';
-    if (!target.path || target.path.length === 0) {
-      html = '';
-    } else {
+    if (path && path.length > 0) {
       // Each path entry is exactly one action (one key press, possibly held
       // for multiple cells) -> render exactly ONE icon per entry, so the icon
       // count on screen always equals the numeric move count (MIN n).
-      const path = target.path;
       for (const step of path) {
         const op = step.op;
         if (op === 'L' || op === 'R') {
@@ -1452,7 +1803,18 @@
     }
     // Hard drop is always the final step of every placement.
     html += iconHardDrop();
-    chip.innerHTML = html;
+    return html;
+  }
+
+  function updateHintUI() {
+    const chip = document.getElementById('stepChip');
+    if (!guideEnabled || !target) {
+      chip.innerHTML = '';
+      chip.style.display = 'none';
+      return;
+    }
+    chip.style.display = 'inline-flex';
+    chip.innerHTML = buildGuideIconsHTML(target.path);
   }
 
   function updateMinMovesUI() {
@@ -1480,7 +1842,7 @@
     document.getElementById('pieceCountM').textContent = `${piecesUsed + 1}/${TOTAL_PIECES}`;
     const lap = Math.floor(piecesUsed / 7) + 1;
     const posInLap = (piecesUsed % 7) + 1;
-    document.getElementById('pieceLapPC').textContent = `${lap}巡目・${posInLap}/7`;
+    document.getElementById('pieceLapPC').textContent = t('lap_pos', { lap, pos: posInLap });
   }
 
   function formatTime(ms) {
@@ -1495,8 +1857,9 @@
     if (!sessionStartTime || sessionEnded) return;
     const elapsed = Date.now() - sessionStartTime;
     const { m, s } = formatTime(elapsed);
-    document.getElementById('timeValPC').textContent = `${m}:${s}`;
-    document.getElementById('timeValM').textContent = `${m}:${s}`;
+    const ds = Math.floor((elapsed % 1000) / 100);
+    document.getElementById('timeValPC').textContent = `${m}:${s}.${ds}`;
+    document.getElementById('timeValM').textContent = `${m}:${s}.${ds}`;
   }
 
   // =====================================================================
@@ -1506,11 +1869,13 @@
     piecesUsed = 0;
     score = 0; streak = 0; misses = 0; successes = 0;
     userMoveCount = 0;
+    clearActionLog();
     holdType = null; holdUsedThisPiece = false;
     bag = []; nextQueue = [];
     sessionEnded = false;
     paused = false;
     document.getElementById('pauseOverlay').classList.remove('show');
+    document.getElementById('missOverlay').classList.remove('show');
     ensureQueue(6);
 
     updateStatsUI();
@@ -1537,25 +1902,9 @@
     document.getElementById('resultSuccess').textContent = successes;
     document.getElementById('resultMiss').textContent = misses;
 
-    const isPerfect = misses === 0;
+    document.getElementById('resultNextHint').classList.toggle('hidden', !guideEnabled);
 
-    let comment;
-    if (isPerfect) {
-      comment = 'パーフェクト！';
-    } else if (misses <= 3) {
-      comment = 'あと一歩！';
-    } else if (misses <= 8) {
-      comment = '着実に上達中';
-    } else {
-      comment = 'まずは基本の配置に慣れよう';
-    }
-    document.getElementById('resultComment').textContent = comment;
-
-    document.getElementById('shareBtn').disabled = !isPerfect;
-    document.getElementById('shareBtnLabel').textContent = isPerfect ? 'Xでシェア' : 'MISS0でシェア';
-    document.getElementById('resultNextHint').classList.toggle('hidden', !(isPerfect && guideEnabled));
-
-    window._lastResult = { m, s, cs, successes, misses, isPerfect, guideWasOn: guideEnabled };
+    window._lastResult = { m, s, cs, guideWasOn: guideEnabled };
 
     showScreen('result');
   }
@@ -1579,6 +1928,27 @@
   }
   function togglePause() {
     if (paused) closePause(); else openPause();
+  }
+
+  // =====================================================================
+  // Miss (game over)
+  // =====================================================================
+  function renderMissOverlay() {
+    if (!lastMiss) return;
+    document.getElementById('missReason').textContent = t(lastMiss.reasonKey);
+    document.getElementById('missMoves').textContent = t('miss_moves_line', { min: lastMiss.minText, count: lastMiss.finalMoveCount });
+  }
+
+  function showMissOverlay(reasonKey, finalMoveCount) {
+    sessionEnded = true;
+    clearInterval(timerInterval);
+    stopHoldMove(-1);
+    stopHoldMove(1);
+    const minText = target.minMoves === null ? '?' : target.minMoves;
+    lastMiss = { reasonKey, finalMoveCount, minText };
+    renderMissOverlay();
+    document.getElementById('missGuideIcons').innerHTML = buildGuideIconsHTML(target.path);
+    document.getElementById('missOverlay').classList.add('show');
   }
 
   function showScreen(name) {
@@ -1619,20 +1989,32 @@
   const DAS_MS = 167; // delay before auto-repeat kicks in (standard-ish DAS)
   const ARR_MS = 33;  // interval between repeated moves once auto-repeat is active
 
-  function startHoldMove(dir) {
+  function startHoldMove(dir, isAutoContinue) {
     if (paused) return;
     const isLeft = dir < 0;
     if ((isLeft && leftHeld) || (!isLeft && rightHeld)) return;
     if (isLeft) leftHeld = true; else rightHeld = true;
 
     // First press moves immediately by 1 cell and counts as the single "move" for this hold.
-    tryMove(dir, true);
+    const label = isAutoContinue ? (isLeft ? 'L!' : 'R!') : undefined;
+    const moved = tryMove(dir, true, label);
+    if (moved) {
+      const idx = actionLog.length - 1;
+      if (isLeft) lastDirLogIndex.left = idx; else lastDirLogIndex.right = idx;
+    }
 
     // After DAS_MS, start auto-repeating the move every ARR_MS (does not add extra move-count,
     // since a held key still counts as just 1 move per the drill's move-counting spec).
     const dasTimer = setTimeout(() => {
       const arrTimer = setInterval(() => tryMove(dir, false), ARR_MS);
       if (isLeft) leftArrTimer = arrTimer; else rightArrTimer = arrTimer;
+      // Confirmed hold: collapse the single tap icon already logged above into
+      // the long-press icon, so a held key always shows as just one entry.
+      const idx = isLeft ? lastDirLogIndex.left : lastDirLogIndex.right;
+      if (idx >= 0 && idx < actionLog.length) {
+        actionLog[idx] = `<span class="log-item">${actionIconHTML(isLeft ? 'HoldL' : 'HoldR')}</span>`;
+        renderActionLog();
+      }
     }, DAS_MS);
     if (isLeft) leftDasTimer = dasTimer; else rightDasTimer = dasTimer;
   }
@@ -1649,8 +2031,23 @@
     }
   }
 
+  function pauseHoldTimers(dir) {
+    // Like stopHoldMove, but leaves leftHeld/rightHeld untouched -- used to
+    // freeze a leftover DAS/ARR interval from the piece that just locked
+    // without losing track of whether the key is still physically down.
+    const isLeft = dir < 0;
+    if (isLeft) { clearTimeout(leftDasTimer); leftDasTimer = null; clearInterval(leftArrTimer); leftArrTimer = null; }
+    else { clearTimeout(rightDasTimer); rightDasTimer = null; clearInterval(rightArrTimer); rightArrTimer = null; }
+  }
+
   document.addEventListener('keydown', (e) => {
     if (document.getElementById('gameScreen').classList.contains('hidden')) return;
+    if (document.getElementById('missOverlay').classList.contains('show')) {
+      const k = e.key.toLowerCase();
+      if (k === 'r') { e.preventDefault(); document.getElementById('missRetryBtn').click(); }
+      else if (e.key === 'Escape') { e.preventDefault(); document.getElementById('missTitleBtn').click(); }
+      return;
+    }
     if (e.key === 'Escape') {
       e.preventDefault();
       if (paused) document.getElementById('pauseTitleBtn').click();
@@ -1803,16 +2200,32 @@
     showScreen('title');
   });
 
+  document.getElementById('missRetryBtn').addEventListener('click', () => {
+    document.getElementById('missOverlay').classList.remove('show');
+    clearInterval(timerInterval);
+    detectLayout();
+    startSession();
+  });
+  document.getElementById('missTitleBtn').addEventListener('click', () => {
+    document.getElementById('missOverlay').classList.remove('show');
+    clearInterval(timerInterval);
+    showScreen('title');
+  });
+  document.getElementById('missHowtoBtn').addEventListener('click', (e) => {
+    e.stopPropagation();
+    openIntro();
+  });
+
   document.getElementById('shareBtn').addEventListener('click', () => {
     const r = window._lastResult;
-    if (!r || !r.isPerfect) return;
+    if (!r) return;
     const lines = [
-      '『ミノスピードドロップ』で全ミノを最短手数でパーフェクトクリア🎉',
+      t('tweet_line1'),
       '',
-      `タイム: ${r.m}:${r.s}.${r.cs}`,
+      t('tweet_time', { m: r.m, s: r.s, cs: r.cs }),
     ];
-    if (r.guideWasOn) lines.push('（操作手順ガイドON）');
-    lines.push('', 'https://tottori007.github.io/msd/', '#ミノスピードドロップ');
+    if (r.guideWasOn) lines.push(t('tweet_guide_on'));
+    lines.push('', 'https://tottori007.github.io/msd/', t('tweet_hashtag'));
     const text = lines.join('\n');
     const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
     window.open(url, '_blank', 'noopener,noreferrer');
@@ -1844,6 +2257,18 @@
   document.getElementById('mDropIcon').innerHTML = iconHardDrop();
   document.getElementById('mRotLIcon').innerHTML = iconRotate(true);
   document.getElementById('mRotRIcon').innerHTML = iconRotate(false);
+
+  document.getElementById('langBtnJa').addEventListener('click', () => applyLanguage('ja'));
+  document.getElementById('langBtnEn').addEventListener('click', () => applyLanguage('en'));
+  function detectDefaultLang() {
+    const langs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ''];
+    for (const l of langs) {
+      if (l && l.toLowerCase().startsWith('ja')) return 'ja';
+    }
+    return 'en';
+  }
+  applyLanguage(detectDefaultLang());
+
   detectLayout();
 })();
 </script>
